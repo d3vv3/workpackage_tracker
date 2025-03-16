@@ -41,11 +41,11 @@ func main() {
 		log.Fatalf("Error summarizing work packages: %v", err)
 	}
 	w := tabwriter.NewWriter(os.Stdout, 0, 1, 4, ' ', 0)
-	fmt.Fprintf(w, "Work Package\tDuration\n")
+	fmt.Fprintf(w, "Work Package\tDuration\tPerson Days\n")
 	var total time.Duration
 	for id, duration := range summary {
 		total += duration
-		fmt.Fprintf(w, "%s\t%s\n", id, duration)
+		fmt.Fprintf(w, "%s\t%s\t%.2f PD\n", id, duration, duration.Hours()/8)
 	}
 	w.Flush()
 	fmt.Printf("\nTotal\t%s\n", total)
